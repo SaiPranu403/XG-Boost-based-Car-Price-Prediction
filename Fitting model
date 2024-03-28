@@ -1,0 +1,23 @@
+
+for cols in cols_encoding:
+  X_train[cols] = label_encoder.fit_transform(X_train[cols])
+
+model = XGBRegressor()
+model.fit(X_train, Y_train)
+Y_train_predicted = model.predict(X_train)
+
+print(Y_train_predicted)
+score = metrics.r2_score(Y_train,Y_train_predicted)
+
+score_2 = metrics.mean_absolute_error(Y_train,Y_train_predicted)
+print(score, " ", score_2)
+
+for cols in cols_encoding:
+  X_test[cols] = label_encoder.fit_transform(X_test[cols])
+
+Y_test_predicted = model.predict(X_test)
+score_3 = metrics.r2_score(Y_test,Y_test_predicted)
+print(score_3)
+
+plt.scatter(Y_train,Y_train_predicted)
+plt.scatter(Y_test,Y_test_predicted)
