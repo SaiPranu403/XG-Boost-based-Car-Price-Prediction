@@ -1,0 +1,18 @@
+dataset = pd.read_csv('/content/CarPrice_Assignment.csv')
+dataset.head()
+label_encoder = LabelEncoder()
+cols_encoding = [ 'CarName', 'fueltype', 'aspiration', 'doornumber', 'carbody', 
+                  'drivewheel', 'enginelocation', 'enginetype', 'cylindernumber', 
+                  'fuelsystem' ]
+
+dataset.shape
+dataset.describe()
+correlation = dataset.corr()
+print(correlation.iloc[-1,:])
+plt.figure(figsize = (26,26))
+sns.heatmap(correlation, cbar = True, square = True, fmt = '.1f', annot = True, annot_kws={'size':8}, cmap = 'Reds')
+
+X = dataset.iloc[:,0:-1]
+Y = dataset.iloc[:,-1]
+
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size = 0.2, random_state=1)
